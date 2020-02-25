@@ -1,0 +1,50 @@
+<section class="section game">
+  <div class="container game">
+  <span class="score">Score:{{score}}</span>
+  <span class="to-translate">Mot à traduire: {{wordToTranslate}}</span>
+  <form [formGroup] ="nestedForm" (ngSubmit)="translateAndVerify()">
+    <input
+      class="input is-large"
+      type="text"
+      formControlName="word"
+      [value]="wordTranslated[0]"
+    >
+    <button
+      type="submit"
+      class="button is-success is-medium"
+      [disabled]="nestedForm.invalid"
+    >
+      Envoyer
+    </button>
+  </form>
+  </div>
+  <article class="tile is-child notification is-primary">
+    <p class="title">Régles du jeu</p>
+    <p class="subtitle">
+      - Vous démarrez avec un capital de 10 points. Si vous vous trompez de mot, vous perdez un point. Si vous trouvez le bon mot, vous gagnez un point.
+      <br>
+      <br>
+      - Si vous arrivez à 0 points vous avez perdu. Si vous arrivez à 20 points vous avez gagné.
+
+    </p>
+  </article>
+</section>
+<div class="modal is-active" *ngIf="this.score === 0">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <p class="image is-4by3">
+      <img src="../../assets/img/fail.jpg" alt="">
+    </p>
+  </div>
+  <button class="modal-close is-large" aria-label="close" (click)= "this.score = 10; this.notAllowed = []"></button>
+</div>
+<div class="modal is-active" *ngIf="this.score === 20">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <p class="image is-4by3">
+      <img src="../../assets/img/succes.jpg" alt="">
+    </p>
+  </div>
+  <button class="modal-close is-large" aria-label="close" (click)= "this.score = 10; this.notAllowed = []"></button>
+</div>
+
